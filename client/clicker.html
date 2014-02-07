@@ -10,7 +10,9 @@
     <li><a href="{{pathFor 'poll'}}">{{title}}</a></li>
   {{/each}}
   </ul>
-  <button class="btn btn-primary">New Poll</button>
+  {{#if currentUser}}
+    <button class="btn btn-primary">New Poll</button>
+  {{/if}}
 </template>
 
 <template name="poll">
@@ -18,7 +20,7 @@
   {{#each choices}}
     {{>choice}}
   {{/each}}
-  <p>{{currentUser}} has selected option {{selected_choice}}</p>
+  <p>You have selected option {{selected_choice}}</p>
 </template>
 
 <template name="choice">
