@@ -3,11 +3,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
+<body>
+  <div class="container">
+    <div class="row">{{yield}}</div>
+    <div class="row">{{loginButtons}}</div>
+  </div>
+  
+</body>
+
 <template name="polls">
   <h3>Available Polls:</h3>
   <ul>
   {{#each .}}
-    <li><a href="{{pathFor 'poll'}}">{{title}}</a></li>
+    <li><h4><a href="{{pathFor 'poll'}}">{{title}}</a></h4></li>
   {{/each}}
   </ul>
   {{#if currentUser}}
@@ -16,9 +24,9 @@
 </template>
 
 <template name="poll">
-  <p>Poll: {{title}}</p>
+  <h3>Poll: {{title}}</h3>
   {{#each choices}}
-    {{>choice}}
+    <h4>{{>choice}}</h4>
   {{/each}}
   <p>You have selected option {{selected_choice}}</p>
 </template>

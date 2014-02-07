@@ -8,4 +8,7 @@ autopublish
 insecure
 preserve-inputs
 iron-router
-bootstrap-3
+accounts-ui
+accounts-password
+accounts-google
+jquery
