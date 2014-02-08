@@ -26,7 +26,7 @@
 <template name="poll">
   <h3>Poll: {{title}}</h3>
   {{#each choices}}
-    <h4>{{>choice}}</h4>
+    <h4 class="choice {{selected}}">{{>choice}}</h4>
   {{/each}}
   <p>You have selected option {{selected_choice}}</p>
 </template>

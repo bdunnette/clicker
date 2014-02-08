@@ -1,8 +1,7 @@
 body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 200;
-    margin: 50px 0;
-    padding: 0;
+    padding: 50px;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
@@ -10,53 +9,10 @@ body {
     user-select: none;
 }
 
-#outer {
-    width: 600px;
-    margin: 0 auto;    
+.choice {
+    padding-left: 25px;
 }
 
-.player {
-    cursor: pointer;
-    padding: 5px;
-}
-
-.player .name {
-    display: inline-block;
-    width: 300px;
-    font-size: 1.75em;
-}
-
-.player .score {
-    display: inline-block;
-    width: 100px;
-    text-align: right;
-    font-size: 2em;
-    font-weight: bold;
-    color: #777;
-}
-
-.player.selected {
+.choice.selected {
     background-color: yellow;
-}
-
-.player.selected .score {
-    color: black;
-}
-
-.details, .none {
-    font-weight: bold;
-    font-size: 2em;
-    border-style: dashed none none none;
-    border-color: #ccc;
-    border-width: 4px;
-    margin: 50px 10px;
-    padding: 10px 0px;
-}
-
-.none {
-    color: #777;
-}
-
-.inc {
-  cursor: pointer;
 }
