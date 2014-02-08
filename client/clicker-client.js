@@ -13,3 +13,11 @@ Template.poll.events = {
     Session.set("selected_choice", this[0]);
   }
 };
+
+Template.polls.events = {
+  'click button.new-poll': function () {
+    var newPoll = Polls.insert({title: "New Poll", choices: ["A", "B", "C", "D", "E"]});
+    console.log(newPoll);
+    Router.go('/p/' + newPoll);
+  },
+};
