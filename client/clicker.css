@@ -10,7 +10,7 @@ body {
 }
 
 .choice {
-    padding-left: 25px;
+    padding: 25px;
 }
 
 .choice.selected {

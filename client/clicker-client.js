@@ -23,7 +23,7 @@ Template.poll.events = {
 Template.poll.rendered = function() {
     var selected_choice = Session.get("selected_choice");
     $('#pollTitle').attr("contenteditable", true);
-    $('.choice#' + selected_choice).addClass('active');
+    $('.choice#' + selected_choice).addClass('selected');
 };
 
 Template.polls.events = {

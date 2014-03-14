@@ -1,7 +1,5 @@
 {
   "packages": {
-    "iron-router": {},
-    "bootstrap-3": {},
-    "stringify-pretty": {}
+    "iron-router": {}
   }
 }
