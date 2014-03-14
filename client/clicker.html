@@ -25,9 +25,11 @@
 
 <template name="poll">
   <h3>Poll: <span id="pollTitle">{{title}}</span></h3>
+  <div class="btn-group btn-group-vertical">
   {{#each choices}}
     {{>choice}}
   {{/each}}
+  </div>
   <p>You have selected option {{selected_choice}}</p>
 </template>
 
@@ -35,5 +37,5 @@
     {{#if selected_choice}}
     {{selected_choice}}
     {{/if}}
-  <button type="button" id={{.}} class="choice btn btn-lg">{{.}}</button>
+  <button type="button" id={{.}} class="choice btn btn-lg btn-primary">{{.}}</button>
 </template>
