@@ -24,13 +24,16 @@
 </template>
 
 <template name="poll">
-  <h3>Poll: {{title}}</h3>
+  <h3>Poll: <span id="pollTitle">{{title}}</span></h3>
   {{#each choices}}
-    <h4 class="choice {{selected}}">{{>choice}}</h4>
+    {{>choice}}
   {{/each}}
   <p>You have selected option {{selected_choice}}</p>
 </template>
 
 <template name="choice">
-  <p>{{.}}</p>
+    {{#if selected_choice}}
+    {{selected_choice}}
+    {{/if}}
+  <button type="button" id={{.}} class="choice btn btn-lg">{{.}}</button>
 </template>
