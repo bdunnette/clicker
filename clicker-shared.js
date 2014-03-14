@@ -15,11 +15,11 @@ Router.map(function() {
   });
   this.route('poll', {
     path: '/p/:_id',
-    waitOn: function () {
-      return Meteor.subscribe('polls');
-    },
     data: function () {
-      return Polls.findOne({slug: this._id});
+      _id = this.params._id;
+      var poll = Polls.findOne({_id: _id});
+      console.log(poll);
+      return poll;
     },
   });
 })
