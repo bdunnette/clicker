@@ -15,7 +15,7 @@
   <h3>Available Polls:</h3>
   <ul>
   {{#each .}}
-    <li><h4><a href="{{pathFor 'poll'}}">{{title}}</a></h4></li>
+    <li><h4><a href="{{pathFor 'poll'}}">{{_id}}: {{title}}</a></h4></li>
   {{/each}}
   </ul>
   {{#if currentUser}}
@@ -24,13 +24,23 @@
 </template>
 
 <template name="poll">
-  <h3>Poll: <span id="pollTitle">{{title}}</span></h3>
-  {{#each choices}}
+  <h3>Poll: <span id="pollTitle">{{poll.title}}</span></h3>
+  <p>This poll is {{#if poll.open}}OPEN{{else}}CLOSED{{/if}}.</p>
+  <div class="btn-group" id="response-buttons">
+  {{#each responses}}
     {{>choice}}
   {{/each}}
+  </div>
   <p>You have selected option {{selected_choice}}</p>
+  <button class="btn btn-warning close-poll">Close Poll</button>
+  <button class="btn btn-danger delete-poll">Delete Poll</button>
 </template>
 
 <template name="choice">
-  <div class="choice" id="{{.}}">{{.}}</div>
+  <button type="button" class="btn btn-primary choice" id="{{_id}}">{{text}}</button>
+</template>
+
+<template name="result">
+  <div class="result" id="{{.}}">{{.}}</div>
+  <progress id="{{.}}" max="10"></progress>
 </template>

@@ -9,10 +9,10 @@ body {
     user-select: none;
 }
 
-.choice {
+.choice, .result {
     padding: 25px;
 }
 
-.choice.selected {
+.choice.selected, .result.selected {
     background-color: yellow;
 }
