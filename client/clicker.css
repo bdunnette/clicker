@@ -19,4 +19,5 @@ Use the following for percents - from http://jsfiddle.net/kQQs2/
 
 .choice.selected, .result.selected {
     background-color: yellow;
+    background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAAJElEQVQIW2P8/4nhP8NRBgYGawYGxv/bgRwgAwQYwTIgAJQFAPJvCpn3COdBAAAAAElFTkSuQmCC) repeat;
 }

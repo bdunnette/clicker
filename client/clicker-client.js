@@ -9,7 +9,9 @@ Template.poll.selected_choice = function() {
 
 Template.poll.events = {
   'click .choice': function (event, template) {
-    Session.set("selected_choice", this[0]);
+    console.log(this);
+    Session.set("selected_choice", this._id);
+    console.log(Session);
     var parentID = template.data._id;
     var userId = Meteor.userId();
     var obj = {};
