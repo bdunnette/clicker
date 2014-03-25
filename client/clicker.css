@@ -1,17 +1,21 @@
-body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-weight: 200;
-    padding: 50px;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -o-user-select: none;
-    user-select: none;
+.choice, .result {
+    margin: 25px;
+    width:200px;
+    height:50px;
+    border:3px solid black;
+    border-radius:5px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 200%;
 }
 
-.choice, .result {
-    padding: 25px;
-}
+/* 
+Use the following for percents - from http://jsfiddle.net/kQQs2/
+    background: -webkit-linear-gradient(left, blue 30%, white 30%);
+    background: -moz-linear-gradient(left, blue 30%, white 30%);
+    background: -ms-linear-gradient(left, blue 30%, white 30%);
+    background: linear-gradient(left, blue 30%, white 30%);
+*/
 
 .choice.selected, .result.selected {
     background-color: yellow;

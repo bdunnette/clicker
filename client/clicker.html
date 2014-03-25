@@ -4,11 +4,10 @@
 </head>
 
 <body>
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">{{yield}}</div>
     <div class="row">{{loginButtons}}</div>
   </div>
-  
 </body>
 
 <template name="polls">
@@ -26,18 +25,16 @@
 <template name="poll">
   <h3>Poll: <span id="pollTitle">{{poll.title}}</span></h3>
   <p>This poll is {{#if poll.open}}OPEN{{else}}CLOSED{{/if}}.</p>
-  <div class="btn-group" id="response-buttons">
   {{#each responses}}
     {{>choice}}
   {{/each}}
-  </div>
   <p>You have selected option {{selected_choice}}</p>
   <button class="btn btn-warning close-poll">Close Poll</button>
   <button class="btn btn-danger delete-poll">Delete Poll</button>
 </template>
 
 <template name="choice">
-  <button type="button" class="btn btn-primary choice" id="{{_id}}">{{text}}</button>
+  <div class="choice" id="{{_id}}">{{text}}</div>
 </template>
 
 <template name="result">
