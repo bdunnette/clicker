@@ -23,6 +23,11 @@ Template.poll.events = {
     var newTitle = $('#pollTitle').text();
     Polls.update(this.poll._id, { $set: {title: newTitle}});
   },
+    
+  'blur .choice': function () {
+    var newText = $('#' + this._id).text();
+    Responses.update(this._id, { $set: {text: newText}});
+  },
   
   'click button.close-poll': function () {
       Polls.update(this.poll._id, { $set: {open: false}});
@@ -37,12 +42,11 @@ Template.poll.events = {
 Template.poll.rendered = function() {
     var selected_choice = Session.get("selected_choice");
     console.log(this.data);
-    if (this.data.poll.open) {
+    if (this.data.poll.owner == Meteor.userId()) {
         $('#pollTitle').attr("contenteditable", true);
-        $('.choice#' + selected_choice).addClass('selected');
+        $('.choice').attr("contenteditable", true);        
     } else {
-        $('button.choice').addClass('disabled');
-        $('.result#' + selected_choice).addClass('selected');
+        $('.choice#' + selected_choice).addClass('selected');
     }
 };
 
