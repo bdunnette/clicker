@@ -21,7 +21,7 @@ Template.poll.events = {
     
   'blur #pollTitle': function () {
     var newTitle = $('#pollTitle').text();
-    Polls.update(this.poll._id, { $set: {title: newTitle}});
+    Polls.update(this._id, { $set: {title: newTitle}});
   },
     
   'blur .choice': function () {
@@ -30,11 +30,11 @@ Template.poll.events = {
   },
   
   'click button.close-poll': function () {
-      Polls.update(this.poll._id, { $set: {open: false}});
+      Polls.update(this._id, { $set: {open: false}});
   },
 
   'click button.delete-poll': function () {
-      Polls.remove(this.poll._id);
+      Polls.remove(this._id);
       Router.go('/');
   }
 };
@@ -42,7 +42,7 @@ Template.poll.events = {
 Template.poll.rendered = function() {
     var selected_choice = Session.get("selected_choice");
     console.log(this.data);
-    if (this.data.poll.owner == Meteor.userId()) {
+    if (this.data.owner == Meteor.userId()) {
         $('#pollTitle').attr("contenteditable", true);
         $('.choice').attr("contenteditable", true);        
     } else {
@@ -52,12 +52,10 @@ Template.poll.rendered = function() {
 
 Template.polls.events = {
   'click button.new-poll': function () {
-    var newPoll = Polls.insert({title: "New Poll", open: true, owner: Meteor.userId()});
-    console.log(newPoll);
-    var defaultChoices = ["A", "B", "C", "D", "E"];
-    for (var c in defaultChoices) {
-        Responses.insert({poll: newPoll, text:defaultChoices[c], respondents:[]});
-    }
-    Router.go('/p/' + newPoll);
+    Meteor.call('createPoll', function(err, response) {
+        console.log(err);
+        console.log(response);
+        Router.go('poll', {_id: response});
+    });
   },
 };

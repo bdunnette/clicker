@@ -23,8 +23,8 @@
 </template>
 
 <template name="poll">
-  <h3>Poll: <span id="pollTitle">{{poll.title}}</span></h3>
-  <p>This poll is {{#if poll.open}}OPEN{{else}}CLOSED{{/if}}.</p>
+  <h3>Poll: <span id="pollTitle">{{title}}</span></h3>
+  <p>This poll is {{#if open}}OPEN{{else}}CLOSED{{/if}}.</p>
   {{#each responses}}
     {{>choice}}
   {{/each}}
