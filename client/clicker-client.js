@@ -9,14 +9,11 @@ Template.poll.selected_choice = function() {
 
 Template.poll.events = {
   'click .choice': function (event, template) {
-    console.log(this);
-    Session.set("selected_choice", this._id);
-    console.log(Session);
-    var parentID = template.data._id;
-    var userId = Meteor.userId();
-    var obj = {};
-    obj["responses." + userId] = this[0];
-    Polls.update({_id: parentID}, {$set: obj});
+    Session.set("selected_choice", this.id);
+    Meteor.call('setResponse', template.data._id, this.id, function (err, response) {
+        console.log(err);
+        console.log(response);
+    });
   },
     
   'blur #pollTitle': function () {
@@ -42,6 +39,7 @@ Template.poll.events = {
 Template.poll.rendered = function() {
     var selected_choice = Session.get("selected_choice");
     console.log(this.data);
+    console.log(Meteor.userId());
     if (this.data.owner == Meteor.userId()) {
         $('#pollTitle').attr("contenteditable", true);
         $('.choice').attr("contenteditable", true);        
@@ -59,3 +57,24 @@ Template.polls.events = {
     });
   },
 };
+
+Router.map(function() {
+  this.route('polls', {
+    path: '/',
+    waitOn: function () {
+      return Meteor.subscribe('polls');
+    },
+    data: function () {
+      return Polls.find();
+    },
+  });
+  this.route('poll', {
+    path: '/p/:_id',
+    data: function () {
+      _id = this.params._id;
+      var poll = Polls.findOne({_id: this.params._id});
+      if (!Meteor.userId()) {Meteor.loginVisitor()};
+      return poll;
+    },
+  });
+})
