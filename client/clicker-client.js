@@ -71,6 +71,10 @@ Router.map(function() {
   });
   this.route('poll', {
     path: '/p/:_id',
+    waitOn: function () {
+      var pollId = this.params._id;
+      return [Meteor.subscribe('polls', pollId), Meteor.subscribe('pollchoices', pollId), Meteor.subscribe('responses', pollId)];
+    },
     data: function () {
       _id = this.params._id;
       var poll = Polls.findOne({_id: this.params._id});

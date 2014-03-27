@@ -4,6 +4,18 @@ Meteor.startup(function () {
   //Responses.remove({});
 });
 
+Meteor.publish('polls', function(pollId) {
+  return Polls.find(); 
+});
+
+Meteor.publish('pollchoices', function(pollId) {
+  return PollChoices.find(); 
+});
+
+Meteor.publish('responses', function(pollId) {
+  return Responses.find(); 
+});
+
 Meteor.methods({
     createPoll: function () {
         var defaultPoll = {
