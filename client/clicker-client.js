@@ -41,9 +41,8 @@ Template.poll.rendered = function() {
     if (this.data.poll.owner == Meteor.userId()) {
         $('#pollTitle').attr("contenteditable", true);
         $('.choice').attr("contenteditable", true);        
-    } else {
-        $('.choice#' + selected_choice).addClass('selected');
     }
+    $('.choice#' + selected_choice).addClass('selected');
 };
 
 Template.choice.responseCount = function (choiceId, pollId) {
