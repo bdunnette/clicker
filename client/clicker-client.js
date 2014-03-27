@@ -10,10 +10,12 @@ Template.poll.selected_choice = function() {
 Template.poll.events = {
   'click .choice': function (event, template) {
     Session.set("selected_choice", this._id);
-    Meteor.call("setResponse", this.poll, this._id, Meteor.userId(), function (err, response) {
-          console.log(err);
-          console.log(response);
-      });
+    Meteor.call("setResponse", this.poll, this._id, Meteor.userId());
+  },
+    
+  'tap .choice': function (event, template) {
+    Session.set("selected_choice", this._id);
+    Meteor.call("setResponse", this.poll, this._id, Meteor.userId());
   },
     
   'blur #pollTitle': function () {
@@ -22,24 +24,16 @@ Template.poll.events = {
   },
     
   'blur .choice': function () {
-      console.log(this);
     var newText = $('#' + this._id).text();
     PollChoices.update(this._id, { $set: {text: newText}});
   },
   
     'click button.delete-poll': function () {
       Meteor.call("deletePoll", this.poll._id, function (err, response) {
-          console.log(err);
-          console.log(response);
           Router.go('/');
       });
       
   },
-    
-    'click button.show-results': function () {
-      console.log(this.choices);
-      
-  }
 };
 
 Template.poll.rendered = function() {
@@ -54,17 +48,13 @@ Template.poll.rendered = function() {
 
 Template.choice.responseCount = function (choiceId, pollId) {
     var choiceResponses = Responses.find({choice: choiceId}).count();
-    console.log(choiceId + " responses:" + choiceResponses);
     var totalResponses = Responses.find({poll: pollId}).count();
-    console.log("Total:" + totalResponses);
     return 100 * (choiceResponses / totalResponses);
 };
 
 Template.polls.events = {
   'click button.new-poll': function () {
     Meteor.call('createPoll', function(err, response) {
-        console.log(err);
-        console.log(response);
         Router.go('poll', {_id: response});
     });
   },

@@ -9,14 +9,6 @@
     font-size: 200%;
 }
 
-/* 
-Use the following for percents - from http://jsfiddle.net/kQQs2/
-    background: -webkit-linear-gradient(left, blue 30%, white 30%);
-    background: -moz-linear-gradient(left, blue 30%, white 30%);
-    background: -ms-linear-gradient(left, blue 30%, white 30%);
-    background: linear-gradient(left, blue 30%, white 30%);
-*/
-
 .choice.selected {
     background-color: yellow;
     background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAAJElEQVQIW2P8/4nhP8NRBgYGawYGxv/bgRwgAwQYwTIgAJQFAPJvCpn3COdBAAAAAElFTkSuQmCC) repeat;
