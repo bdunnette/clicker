@@ -31,7 +31,8 @@ Meteor.methods({
             var choice = {
                 poll: newPoll,
                 text: defaultChoices[d],
-                color: defaultColors[d]
+                color: defaultColors[d],
+                owner: this.userId
             };
             console.log(choice);
             var newChoice = PollChoices.insert(choice);
