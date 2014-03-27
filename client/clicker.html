@@ -33,8 +33,12 @@
 </template>
 
 <template name="choice">
-  <div class="choice" id="{{_id}}" style="background: -webkit-linear-gradient(left, {{color}} {{responseCount _id poll}}%, white {{responseCount _id poll}}%);
+    {{#if responseCount _id poll}}
+        <div class="choice" id="{{_id}}" style="background: -webkit-linear-gradient(left, {{color}} {{responseCount _id poll}}%, white {{responseCount _id poll}}%);
     background: -moz-linear-gradient(left, {{color}} {{responseCount _id poll}}%, white {{responseCount _id poll}}%);
     background: -ms-linear-gradient(left, {{color}} {{responseCount _id poll}}%, white {{responseCount _id poll}}%);
     background: linear-gradient(left, {{color}} {{responseCount _id poll}}%, white {{responseCount _id poll}}%);">{{text}}</div>
+    {{else}}
+        <div class="choice" id="{{_id}}">{{text}}</div>
+    {{/if}}
 </template>
