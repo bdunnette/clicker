@@ -14,7 +14,7 @@
   <h3>Available Polls:</h3>
   <ul>
   {{#each .}}
-    <li><h4><a href="{{pathFor 'poll'}}">{{_id}}: {{title}}</a></h4></li>
+    <li><h4><a href="{{pathFor 'poll'}}">{{title}}</a></h4></li>
   {{/each}}
   </ul>
   {{#if currentUser}}
@@ -27,7 +27,9 @@
   {{#each choices}}
     {{>choice}}
   {{/each}}
-  <button class="btn btn-danger delete-poll">Delete Poll</button>
+  {{#if currentUser}}
+    <button class="btn btn-danger delete-poll">Delete Poll</button>
+  {{/if}}
 </template>
 
 <template name="choice">
