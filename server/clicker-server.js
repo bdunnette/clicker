@@ -1,33 +1,44 @@
 Meteor.startup(function () {
   //Polls.remove({});
+  //PollChoices.remove({});
   //Responses.remove({});
 });
 
 Meteor.methods({
     createPoll: function () {
-        console.log(this);
         var defaultPoll = {
             owner: this.userId,
             title: "New Poll",
-            open: false,
-            responses: [
-                {id: Meteor.uuid(), text: "A", respondents: []},
-                {id: Meteor.uuid(), text: "B", respondents: []},
-                {id: Meteor.uuid(), text: "C", respondents: []},
-                {id: Meteor.uuid(), text: "D", respondents: []},
-                {id: Meteor.uuid(), text: "E", respondents: []}
-            ]
+            open: true,
         };
         var newPoll = Polls.insert(defaultPoll);
         console.log(newPoll);
+        var defaultChoices = ["A", "B", "C", "D", "E"];
+        var defaultColors = ["blue", "green", "yellow", "orange", "red"];
+        for (d in defaultColors) {
+            var choice = {
+                poll: newPoll,
+                text: defaultChoices[d],
+                color: defaultColors[d]
+            };
+            console.log(choice);
+            var newChoice = PollChoices.insert(choice);
+            console.log(newChoice);
+        };
         return newPoll;
     },
     
-    setResponse: function(pollId, responseId) {
-        console.log(pollId);
-        console.log(responseId);
-        console.log(this.userId);
-        var poll = Polls.findOne({_id: pollId});
-        console.log(poll);
+    deletePoll: function (pollId) {
+        var pollDeleted = Polls.remove(pollId);
+        console.log(pollDeleted);
+        var choicesDeleted = PollChoices.remove({poll: pollId});
+        console.log(choicesDeleted);
+        var responsesDeleted = Responses.remove({poll: pollId});
+        return pollDeleted;
+    },
+    
+    setResponse: function (pollId, choiceId, userId) {
+        var responseSet = Responses.upsert({poll: pollId, user: userId}, { $set: {choice: choiceId}});
+        return responseSet;
     }
 });

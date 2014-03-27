@@ -9,30 +9,31 @@ Template.poll.selected_choice = function() {
 
 Template.poll.events = {
   'click .choice': function (event, template) {
-    Session.set("selected_choice", this.id);
-    Meteor.call('setResponse', template.data._id, this.id, function (err, response) {
-        console.log(err);
-        console.log(response);
-    });
+    Session.set("selected_choice", this._id);
+    Meteor.call("setResponse", this.poll, this._id, Meteor.userId(), function (err, response) {
+          console.log(err);
+          console.log(response);
+      });
   },
     
   'blur #pollTitle': function () {
     var newTitle = $('#pollTitle').text();
-    Polls.update(this._id, { $set: {title: newTitle}});
+    Polls.update(this.poll._id, { $set: {title: newTitle}});
   },
     
   'blur .choice': function () {
+      console.log(this);
     var newText = $('#' + this._id).text();
-    Responses.update(this._id, { $set: {text: newText}});
+    PollChoices.update(this._id, { $set: {text: newText}});
   },
   
-  'click button.close-poll': function () {
-      Polls.update(this._id, { $set: {open: false}});
-  },
-
-  'click button.delete-poll': function () {
-      Polls.remove(this._id);
-      Router.go('/');
+    'click button.delete-poll': function () {
+      Meteor.call("deletePoll", this.poll._id, function (err, response) {
+          console.log(err);
+          console.log(response);
+          Router.go('/');
+      });
+      
   }
 };
 
@@ -40,7 +41,7 @@ Template.poll.rendered = function() {
     var selected_choice = Session.get("selected_choice");
     console.log(this.data);
     console.log(Meteor.userId());
-    if (this.data.owner == Meteor.userId()) {
+    if (this.data.poll.owner == Meteor.userId()) {
         $('#pollTitle').attr("contenteditable", true);
         $('.choice').attr("contenteditable", true);        
     } else {
@@ -73,8 +74,9 @@ Router.map(function() {
     data: function () {
       _id = this.params._id;
       var poll = Polls.findOne({_id: this.params._id});
+      var choices = PollChoices.find({poll: this.params._id});
       if (!Meteor.userId()) {Meteor.loginVisitor()};
-      return poll;
+      return {poll: poll, choices: choices};
     },
   });
 })

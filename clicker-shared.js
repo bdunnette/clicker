@@ -2,23 +2,6 @@
 // it is backed by a MongoDB collection named "players".
 
 Polls = new Meteor.Collection("polls");
+PollChoices = new Meteor.Collection("pollchoices");
+Responses = new Meteor.Collection("responses");
 
-Router.map(function() {
-  this.route('polls', {
-    path: '/',
-    waitOn: function () {
-      return Meteor.subscribe('polls');
-    },
-    data: function () {
-      return Polls.find();
-    },
-  });
-  this.route('poll', {
-    path: '/p/:_id',
-    data: function () {
-      _id = this.params._id;
-      var poll = Polls.findOne({_id: this.params._id});
-      return poll;
-    },
-  });
-})

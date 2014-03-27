@@ -23,9 +23,9 @@
 </template>
 
 <template name="poll">
-  <h3>Poll: <span id="pollTitle">{{title}}</span></h3>
-  <p>This poll is {{#if open}}OPEN{{else}}CLOSED{{/if}}.</p>
-  {{#each responses}}
+  <h3>Poll: <span id="pollTitle">{{poll.title}}</span></h3>
+  <p>This poll is {{#if poll.open}}OPEN{{else}}CLOSED{{/if}}.</p>
+  {{#each choices}}
     {{>choice}}
   {{/each}}
   <p>You have selected option {{selected_choice}}</p>
@@ -34,10 +34,5 @@
 </template>
 
 <template name="choice">
-  <div class="choice" id="{{id}}">{{text}}</div>
-</template>
-
-<template name="result">
-  <div class="result" id="{{.}}">{{.}}</div>
-  <progress id="{{.}}" max="10"></progress>
+  <div class="choice" id="{{_id}}">{{text}}</div>
 </template>
