@@ -34,19 +34,30 @@ Template.poll.events = {
           Router.go('/');
       });
       
+  },
+    
+    'click button.show-results': function () {
+      console.log(this.choices);
+      
   }
 };
 
 Template.poll.rendered = function() {
     var selected_choice = Session.get("selected_choice");
-    console.log(this.data);
-    console.log(Meteor.userId());
     if (this.data.poll.owner == Meteor.userId()) {
         $('#pollTitle').attr("contenteditable", true);
         $('.choice').attr("contenteditable", true);        
     } else {
         $('.choice#' + selected_choice).addClass('selected');
     }
+};
+
+Template.choice.responseCount = function (choiceId, pollId) {
+    var choiceResponses = Responses.find({choice: choiceId}).count();
+    console.log(choiceId + " responses:" + choiceResponses);
+    var totalResponses = Responses.find({poll: pollId}).count();
+    console.log("Total:" + totalResponses);
+    return 100 * (choiceResponses / totalResponses);
 };
 
 Template.polls.events = {
@@ -75,8 +86,9 @@ Router.map(function() {
       _id = this.params._id;
       var poll = Polls.findOne({_id: this.params._id});
       var choices = PollChoices.find({poll: this.params._id});
+      var responses = Responses.find({poll: this.params._id});
       if (!Meteor.userId()) {Meteor.loginVisitor()};
-      return {poll: poll, choices: choices};
+      return {poll: poll, choices: choices, responses: responses};
     },
   });
 })

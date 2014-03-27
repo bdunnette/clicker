@@ -24,15 +24,15 @@
 
 <template name="poll">
   <h3>Poll: <span id="pollTitle">{{poll.title}}</span></h3>
-  <p>This poll is {{#if poll.open}}OPEN{{else}}CLOSED{{/if}}.</p>
   {{#each choices}}
     {{>choice}}
   {{/each}}
-  <p>You have selected option {{selected_choice}}</p>
-  <button class="btn btn-warning close-poll">Close Poll</button>
   <button class="btn btn-danger delete-poll">Delete Poll</button>
 </template>
 
 <template name="choice">
-  <div class="choice" id="{{_id}}">{{text}}</div>
+  <div class="choice" id="{{_id}}" style="background: -webkit-linear-gradient(left, {{color}} {{responseCount _id poll}}%, white {{responseCount _id poll}}%);
+    background: -moz-linear-gradient(left, {{color}} {{responseCount _id poll}}%, white {{responseCount _id poll}}%);
+    background: -ms-linear-gradient(left, {{color}} {{responseCount _id poll}}%, white {{responseCount _id poll}}%);
+    background: linear-gradient(left, {{color}} {{responseCount _id poll}}%, white {{responseCount _id poll}}%);">{{text}}</div>
 </template>
