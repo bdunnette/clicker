@@ -28,21 +28,25 @@ Template.poll.events = {
     PollChoices.update(this._id, { $set: {text: newText}});
   },
   
-    'click button.delete-poll': function () {
-      Meteor.call("deletePoll", this.poll._id, function (err, response) {
-          Router.go('/');
-      });
-      
+  'click button.delete-poll': function () {
+    Meteor.call("deletePoll", this.poll._id, function (err, response) {
+      Router.go('/');
+    });
   },
 };
 
+
+Template.poll.isOwner = function () {
+  return Session.get("is_owner");
+}
+
+Template.choice.isOwner = function () {
+  return Session.get("is_owner");
+}
+
 Template.poll.rendered = function() {
-    var selected_choice = Session.get("selected_choice");
-    if (this.data.poll.owner == Meteor.userId()) {
-        $('#pollTitle').attr("contenteditable", true);
-        $('.choice').attr("contenteditable", true);        
-    }
-    $('.choice#' + selected_choice).addClass('selected');
+  var selected_choice = Session.get("selected_choice");
+  $('.choice#' + selected_choice).addClass('selected');
 };
 
 Template.choice.responseCount = function (choiceId, pollId) {
@@ -80,8 +84,15 @@ Router.map(function() {
       var poll = Polls.findOne({_id: this.params._id});
       var choices = PollChoices.find({poll: this.params._id});
       var responses = Responses.find({poll: this.params._id});
-      if (!Meteor.userId()) {Meteor.loginVisitor()};
-      return {poll: poll, choices: choices, responses: responses};
+      return {
+        poll: poll, 
+        choices: choices, 
+        responses: responses
+      };
     },
   });
 })
+.onRun(function() {
+  var currentPoll = Polls.findOne(this.params._id);
+  Session.set("is_owner", currentPoll.owner == Meteor.userId());
+}, {only: 'poll'});

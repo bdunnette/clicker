@@ -4,11 +4,10 @@
 # but you can also edit it by hand.
 
 standard-app-packages
-iron-router
-accounts-ui
-accounts-password
 accounts-google
 jquery
 bootstrap-3
 underscore
 accounts-guest
+iron-router
+accounts-ui

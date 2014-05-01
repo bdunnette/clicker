@@ -5,10 +5,13 @@
 
 <body>
   <div class="container-fluid">
-    <div class="row">{{yield}}</div>
-    <div class="row">{{loginButtons}}</div>
+    {{> loginButtons}}
   </div>
 </body>
+
+<template name="layout">
+    <div class="row">{{> yield}}</div>
+</template>
 
 <template name="polls">
   <h3>Available Polls:</h3>
@@ -23,22 +26,22 @@
 </template>
 
 <template name="poll">
-  <h3>Poll: <span id="pollTitle">{{poll.title}}</span></h3>
+  <h3>Poll: <span id="pollTitle" contenteditable={{isOwner}}>{{poll.title}}</span></h3>
   {{#each choices}}
     {{>choice}}
   {{/each}}
-  {{#if currentUser}}
+  {{#if isOwner}}
     <button class="btn btn-danger delete-poll">Delete Poll</button>
   {{/if}}
 </template>
 
 <template name="choice">
     {{#if responseCount _id poll}}
-        <div class="choice" id="{{_id}}" style="background: -webkit-linear-gradient(left, {{color}} {{responseCount _id poll}}%, white {{responseCount _id poll}}%);
+        <div class="choice" id="{{_id}}" contenteditable={{isOwner}} style="background: -webkit-linear-gradient(left, {{color}} {{responseCount _id poll}}%, white {{responseCount _id poll}}%);
     background: -moz-linear-gradient(left, {{color}} {{responseCount _id poll}}%, white {{responseCount _id poll}}%);
     background: -ms-linear-gradient(left, {{color}} {{responseCount _id poll}}%, white {{responseCount _id poll}}%);
     background: linear-gradient(left, {{color}} {{responseCount _id poll}}%, white {{responseCount _id poll}}%);">{{text}}</div>
     {{else}}
-        <div class="choice" id="{{_id}}">{{text}}</div>
+        <div class="choice" id="{{_id}}" contenteditable={{isOwner}}>{{text}}</div>
     {{/if}}
 </template>
