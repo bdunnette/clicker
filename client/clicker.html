@@ -5,7 +5,7 @@
 
 <body>
   <div class="container-fluid">
-    {{> loginButtons}}
+    <div>{{> loginButtons}}{{#unless currentUser}} to create/edit polls{{/unless}}</div>
   </div>
 </body>
 
