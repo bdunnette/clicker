@@ -6,7 +6,6 @@
 standard-app-packages
 accounts-google
 jquery
-bootstrap-3
 underscore
 accounts-guest
 iron-router
