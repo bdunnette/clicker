@@ -10,6 +10,6 @@ Development
 -----------
 1. [Install node.js](http://nodejs.org/download/)
 2. [Install Meteor 0.8.x](http://docs.meteor.com/#quickstart) - on Mac/Linux, just run the following from the command line: `curl https://install.meteor.com | /bin/sh`
-3. Install Meteorite: `npm install -g meteorite`
+3. Install [Meteorite](https://oortcloud.github.io/meteorite/): `npm install -g meteorite`
 4. Clone this repository
 5. Enter the directory and run `mrt` to download dependencies & start a development server
