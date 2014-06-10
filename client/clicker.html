@@ -14,6 +14,7 @@
 </template>
 
 <template name="polls">
+  <!-- Template listing all available polls -->
   <h3>Available Polls:</h3>
   <ul>
   {{#each .}}
@@ -37,11 +38,13 @@
 
 <template name="choice">
     {{#if responseCount _id poll}}
+        <!-- If there are responses for this choice, fill the button left-to-right to indicate what percent of the responses it represents -->
         <div class="choice" id="{{_id}}" contenteditable={{isOwner}} style="background: -webkit-linear-gradient(left, {{color}} {{responseCount _id poll}}%, white {{responseCount _id poll}}%);
     background: -moz-linear-gradient(left, {{color}} {{responseCount _id poll}}%, white {{responseCount _id poll}}%);
     background: -ms-linear-gradient(left, {{color}} {{responseCount _id poll}}%, white {{responseCount _id poll}}%);
     background: linear-gradient(left, {{color}} {{responseCount _id poll}}%, white {{responseCount _id poll}}%);">{{text}}</div>
     {{else}}
+        <!-- If this choice has received no responses, don't color it! -->
         <div class="choice" id="{{_id}}" contenteditable={{isOwner}}>{{text}}</div>
     {{/if}}
 </template>
