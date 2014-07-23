@@ -1,0 +1,18 @@
+<template name="pollView">
+  <h3>Poll: <span id="pollTitle" contenteditable={{isOwner}}>{{poll.title}}</span></h3>
+  {{#each choices}} 
+    {{>choice}} 
+  {{/each}} 
+  
+  {{#if isOwner}}
+    <button class="btn btn-danger delete-poll">Delete Poll</button>
+  {{/if}}
+</template>
+
+<template name="choice">
+  <div class="progress choice">
+    <div class="progress-bar {{color}}" role="progressbar" aria-valuenow="{{responseCount _id poll}}" aria-valuemin="0" aria-valuemax="100" style="width: {{responseCount _id poll}}%;">
+      <span class="progress-bar-text" contenteditable={{isOwner}}>{{text}}</span>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,14 @@
+<template name="pollsView">
+  <!-- Template listing all available polls -->
+  <h3>Available Polls:</h3>
+  <ul>
+    {{#each .}}
+    <li>
+      <h4><a href="{{pathFor 'poll'}}">{{title}}</a></h4>
+    </li>
+    {{/each}}
+  </ul>
+  {{polls}} {{#if currentUser}}
+  <button class="btn btn-primary new-poll">New Poll</button>
+  {{/if}}
+</template>
