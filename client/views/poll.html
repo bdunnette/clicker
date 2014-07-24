@@ -1,5 +1,5 @@
 <template name="pollView">
-  <h3>Poll: <span id="pollTitle" contenteditable="{{isOwner poll currentUser}}">{{poll.title}}</span></h3>
+  <h3>Poll: <span id="pollTitle" contenteditable="{{isOwner poll._id currentUser}}">{{poll.title}}</span></h3>
   {{#each choices}} 
     {{>choice}} 
   {{/each}} 
