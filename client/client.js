@@ -1,5 +1,10 @@
-UI.registerHelper('isOwner', function () {
-  return Session.get("is_owner");
+UI.registerHelper('isOwner', function (pollId, currentUser) {
+  var poll = Polls.findOne({_id:pollId});
+  if (poll && currentUser) {
+    return poll.owner == currentUser._id;  
+  } else {
+    return false;
+  }
 });
 
 UI.registerHelper('responseCount', function (choiceId, pollId) {

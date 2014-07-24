@@ -35,10 +35,3 @@ Router.map(function () {
     },
   });
 });
-
-Router.onRun(function () {
-  var currentPoll = Polls.findOne(this.params._id);
-  Session.set("is_owner", currentPoll.owner == Meteor.userId());
-}, {
-  only: 'poll'
-});
