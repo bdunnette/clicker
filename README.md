@@ -13,3 +13,8 @@ Development
 3. Install [Meteorite](https://oortcloud.github.io/meteorite/): `npm install -g meteorite`
 4. Clone this repository
 5. Enter the directory and run `mrt` to download dependencies & start a development server
+
+Helpful Links
+-------------
+- [Meteor docs](http://docs.meteor.com/)
+- [Spacebars](https://github.com/meteor/meteor/blob/devel/packages/spacebars/README.md) (Meteor's template language, a variant of handlebars)
