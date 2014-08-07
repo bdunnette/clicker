@@ -8,7 +8,7 @@ Meteor.methods({
     var newPoll = Polls.insert(defaultPoll);
     console.log(newPoll);
     var defaultChoices = ["A", "B", "C", "D", "E"];
-    var defaultColors = ["progress-bar", "progress-bar-success", "progress-bar-info", "progress-bar-warning", "progress-bar-danger"];
+    var defaultColors = ["red", "green", "yellow", "blue", "orange"];
     for (d in defaultColors) {
       var choice = {
         poll: newPoll,

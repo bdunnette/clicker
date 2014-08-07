@@ -1,8 +1,8 @@
 <template name="pollView">
   <h3>Poll: <span id="pollTitle" contenteditable="{{isOwner poll._id currentUser}}">{{poll.title}}</span></h3>
-  {{#each choices}} 
-    {{>choice}} 
-  {{/each}} 
+  {{#each choices}}
+    {{>choice}}
+  {{/each}}
   
   {{#if isOwner poll._id currentUser}}
     <button class="btn btn-danger delete-poll">Delete Poll</button>
@@ -10,9 +10,7 @@
 </template>
 
 <template name="choice">
-  <div class="progress choice">
-    <div class="progress-bar {{color}}" role="progressbar" aria-valuenow="{{responseCount _id poll}}" aria-valuemin="0" aria-valuemax="100" style="width: {{responseCount _id poll responses}}%;">
-      <span class="progress-bar-text" contenteditable="{{isOwner poll currentUser}}">{{text}}</span>
-    </div>
+  <div class="choice" id="{{_id}}" style="background: linear-gradient(to right, {{color}} {{responseCount _id poll}}%, white {{responseCount _id poll}}%);">
+    <span class="choice-text" contenteditable="{{isOwner poll currentUser}}">{{text}}</span>
   </div>
 </template>

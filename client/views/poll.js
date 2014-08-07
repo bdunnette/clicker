@@ -3,7 +3,7 @@ Template.pollView.helpers({
 });
 
 Template.pollView.events({
-  'click .progress': function (event, template) {
+  'click .choice': function (event, template) {
     Session.set("selected_choice", this._id);
     Meteor.call("setResponse", this.poll, this._id, Meteor.userId());
   },
