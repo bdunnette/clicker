@@ -2,8 +2,8 @@
   <h3>Poll: <span id="pollTitle" contenteditable="{{isOwner poll._id currentUser}}">{{poll.title}}</span>
   {{#if isOwner poll._id currentUser}}
   <div class="poll-controls pull-right">
-    <button class="btn btn-success add-choice">Add Choice</button>
-    <button class="btn btn-danger delete-poll">Delete Poll</button>
+    <button class="btn btn-success add-choice">Add Choice <span class="glyphicon glyphicon-plus-sign remove-choice"></span></button>
+    <button class="btn btn-danger delete-poll">Delete Poll <span class="glyphicon glyphicon-remove-sign remove-choice"></span></button>
   </div>
   {{/if}}
   </h3>
@@ -30,7 +30,7 @@
   <div class="choice" id="{{_id}}" style="{{#if responsePercent _id poll}}background: linear-gradient(to right, {{color}} {{responsePercent _id poll}}%, white {{responsePercent _id poll}}%);{{/if}}">
     <span class="choice-text" contenteditable="{{isOwner poll currentUser}}">{{text}}</span>
     {{#if isOwner poll currentUser}}
-      <span class="glyphicon glyphicon-remove-sign remove-choice"></span>
+      <span class="glyphicon glyphicon-minus-sign remove-choice"></span>
     {{/if}}
   </div>
 </template>
