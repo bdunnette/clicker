@@ -8,8 +8,13 @@
 </body>
 
 <template name="layout">
-  {{>navbar}} 
-  <div class="container">
+  {{>navbar}}
+  <div class="container-fluid">
     {{>yield}}
+    <div class="row">
+      <h6>&copy; 2014 Regents of the University of Minnesota</h6>
+      <h6>Developed during <a href="http://apps.oir.umn.edu/campus_codefest/">Campus Codefest 2014</a></h6>
+      <h6>Contribute on <a href="http://github.com/bdunnette/clicker">GitHub</a>!</h6>
+    </div>
   </div>
 </template>
