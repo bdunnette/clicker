@@ -6,11 +6,16 @@
   
   {{#if isOwner poll._id currentUser}}
     <button class="btn btn-danger delete-poll">Delete Poll</button>
+    <button class="btn btn-danger add-choice">Add Choice</button>
   {{/if}}
 </template>
 
 <template name="choice">
   <div class="choice" id="{{_id}}" style="background: linear-gradient(to right, {{color}} {{responsePercent _id poll}}%, white {{responsePercent _id poll}}%);">
     <span class="choice-text" contenteditable="{{isOwner poll currentUser}}">{{text}}</span>
+    {{#if isOwner poll currentUser}}
+      <span class="glyphicon glyphicon-remove-sign remove-choice"></span>
+    {{/if}}
   </div>
+  
 </template>

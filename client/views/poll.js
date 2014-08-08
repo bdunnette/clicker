@@ -22,7 +22,7 @@ Template.pollView.events({
     });
   },
 
-  'blur .progress-bar-text': function (event, template) {
+  'blur .choice-text': function (event, template) {
     var newText = event.target.textContent;
     Pollchoices.update(this._id, {
       $set: {
@@ -32,9 +32,16 @@ Template.pollView.events({
   },
 
   'click button.delete-poll': function () {
-    console.log(this)
     Meteor.call("deletePoll", this.poll._id, function (err, response) {
       Router.go('/');
     });
   },
+  
+  'click button.add-choice': function () {
+    Meteor.call("addChoice", this.poll._id);
+  },
+  
+  'click .remove-choice': function () {
+    Pollchoices.remove(this._id);
+  }
 });

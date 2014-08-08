@@ -1,3 +1,18 @@
+var defaultChoices = [
+  {"text":"A", "color":"red"},
+  {"text":"B", "color":"green"},
+  {"text":"C", "color":"yellow"},
+  {"text":"D", "color":"blue"},
+  {"text":"E", "color":"orange"},
+  {"text":"F", "color":"purple"},
+  {"text":"G", "color":"aqua"},
+  {"text":"H", "color":"maroon"},
+  {"text":"I", "color":"lime"},
+  {"text":"J", "color":"navy"},
+  {"text":"K", "color":"fuchsia"},
+  {"text":"L", "color":"olive"}
+];
+
 Meteor.methods({
   createPoll: function () {
     var defaultPoll = {
@@ -7,20 +22,33 @@ Meteor.methods({
     };
     var newPoll = Polls.insert(defaultPoll);
     console.log(newPoll);
-    var defaultChoices = ["A", "B", "C", "D", "E"];
-    var defaultColors = ["red", "green", "yellow", "blue", "orange"];
-    for (d in defaultColors) {
-      var choice = {
-        poll: newPoll,
-        text: defaultChoices[d],
-        color: defaultColors[d],
-        owner: this.userId
-      };
+    for (i = 0; i < 5; i++) {
+      var choice = defaultChoices[i];
+      choice.poll = newPoll,
+      choice.owner = this.userId;
       console.log(choice);
       var newChoice = Pollchoices.insert(choice);
       console.log(newChoice);
-    };
+    }
     return newPoll;
+  },
+  
+  addChoice: function (pollId) {
+    var choiceCount = Pollchoices.find({poll: pollId}).count();
+    if (defaultChoices[choiceCount]) {
+      choice = defaultChoices[choiceCount];
+    } else {
+      choice = {
+        text: choiceCount,
+        // Thanks to Paul Irish et al for random CSS color code! http://www.paulirish.com/2009/random-hex-color-code-snippets/
+        color: '#'+Math.floor(Math.random()*16777215).toString(16)
+      };
+    }
+    choice.poll = pollId;
+    choice.owner = this.userId;
+    console.log(choice);
+    var newChoice = Pollchoices.insert(choice);
+    console.log(newChoice);
   },
 
   deletePoll: function (pollId) {
