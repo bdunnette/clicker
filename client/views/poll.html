@@ -29,7 +29,7 @@
 </template>
 
 <template name="choice">
-  <div class="choice" id="{{_id}}" style="background: linear-gradient(to right, {{color}} {{responsePercent _id poll}}%, white {{responsePercent _id poll}}%);">
+  <div class="choice" id="{{_id}}" style="{{#if responsePercent _id poll}}background: linear-gradient(to right, {{color}} {{responsePercent _id poll}}%, white {{responsePercent _id poll}}%);{{/if}}">
     <span class="choice-text" contenteditable="{{isOwner poll currentUser}}">{{text}}</span>
     {{#if isOwner poll currentUser}}
       <span class="glyphicon glyphicon-remove-sign remove-choice"></span>
