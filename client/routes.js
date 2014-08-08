@@ -17,7 +17,7 @@ Router.configure({
 Router.onRun(function() {
   if (!Session.get('session_id')) {
     console.log(Session);
-    var session_id = Meteor.userId() || generateSessionId();
+    var session_id = Meteor.userId() || generateSessionID();
     console.log(session_id);
     Session.set('session_id', session_id);
   }
