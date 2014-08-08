@@ -21,14 +21,11 @@ Meteor.methods({
       open: true,
     };
     var newPoll = Polls.insert(defaultPoll);
-    console.log(newPoll);
     for (i = 0; i < 5; i++) {
       var choice = defaultChoices[i];
       choice.poll = newPoll,
       choice.owner = this.userId;
-      console.log(choice);
       var newChoice = Pollchoices.insert(choice);
-      console.log(newChoice);
     }
     return newPoll;
   },
@@ -46,18 +43,15 @@ Meteor.methods({
     }
     choice.poll = pollId;
     choice.owner = this.userId;
-    console.log(choice);
     var newChoice = Pollchoices.insert(choice);
-    console.log(newChoice);
+    return newChoice;
   },
 
   deletePoll: function (pollId) {
     var pollDeleted = Polls.remove(pollId);
-    console.log(pollDeleted);
     var choicesDeleted = PollChoices.remove({
       poll: pollId
     });
-    console.log(choicesDeleted);
     var responsesDeleted = Responses.remove({
       poll: pollId
     });

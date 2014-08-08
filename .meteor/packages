@@ -2,5 +2,5 @@ standard-app-packages
 iron-router
 less
 bootstrap3-less
-accounts-ui
 accounts-google
+accounts-ui-bootstrap-3
