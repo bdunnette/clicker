@@ -1,6 +1,26 @@
+// From http://jsfiddle.net/briguy37/2MVFd/
+function generateSessionID() {
+  var d = new Date().getTime();
+  var uuid = 'guest-xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = (d + Math.random()*16)%16 | 0;
+      d = Math.floor(d/16);
+      return (c=='x' ? r : (r&0x7|0x8)).toString(16);
+  });
+  return uuid;
+}
+
 Router.configure({
   layoutTemplate: 'layout',
   loadingTemplate: 'loading'
+});
+
+Router.onRun(function() {
+  if (!Session.get('session_id')) {
+    console.log(Session);
+    var session_id = Meteor.userId() || generateSessionId();
+    console.log(session_id);
+    Session.set('session_id', session_id);
+  }
 });
 
 Router.map(function () {
@@ -27,7 +47,6 @@ Router.map(function () {
       var responses = Responses.find({
         poll: this.params._id
       });
-      if (!Meteor.userId()) {Meteor.loginVisitor()}
       return {
         poll: poll,
         choices: choices,
