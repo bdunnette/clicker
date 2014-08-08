@@ -41,6 +41,10 @@ Template.pollView.events({
     Meteor.call("addChoice", this.poll._id);
   },
   
+  'click button.clear-response': function () {
+    Meteor.call("clearResponse", this.poll._id, Meteor.userId());
+  },
+  
   'click .remove-choice': function () {
     Pollchoices.remove(this._id);
   }

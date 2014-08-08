@@ -74,5 +74,13 @@ Meteor.methods({
       }
     });
     return responseSet;
+  },
+  
+  clearResponse: function (pollId, userId) {
+    var responseCleared = Responses.remove({
+      poll: pollId,
+      user: userId
+    });
+    return(responseCleared);
   }
 });

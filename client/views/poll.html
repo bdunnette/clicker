@@ -1,13 +1,31 @@
 <template name="pollView">
-  <h3>Poll: <span id="pollTitle" contenteditable="{{isOwner poll._id currentUser}}">{{poll.title}}</span></h3>
-  {{#each choices}}
-    {{>choice}}
-  {{/each}}
+  <h3>Poll: <span id="pollTitle" contenteditable="{{isOwner poll._id currentUser}}">{{poll.title}}</span>
+  {{#if isOwner poll._id currentUser}}
+  <div class="poll-controls pull-right">
+    <button class="btn btn-success add-choice">Add Choice</button>
+    <button class="btn btn-danger delete-poll">Delete Poll</button>
+  </div>
+  {{/if}}
+  </h3>
+  
+  {{#if myResponse poll._id currentUser}}
+    <h4>Your Response: {{myResponse poll._id currentUser}} <button class="btn btn-warning btn-xs clear-response">Clear My Response</button></h4>
+  {{else}}
+    <h4>Select an option to register your response!</h4>
+  {{/if}}
   
   {{#if isOwner poll._id currentUser}}
-    <button class="btn btn-danger delete-poll">Delete Poll</button>
-    <button class="btn btn-danger add-choice">Add Choice</button>
+  <div class="col-md-6 poll-stats">
+    {{> pollStats}}
+  </div>
   {{/if}}
+  
+  <div class="choices {{#if isOwner poll._id currentUser}}col-md-6{{/if}}">
+  {{#each choices}}
+    {{> choice}}
+  {{/each}}
+  </div>
+  
 </template>
 
 <template name="choice">
@@ -17,5 +35,9 @@
       <span class="glyphicon glyphicon-remove-sign remove-choice"></span>
     {{/if}}
   </div>
-  
+</template>
+
+<template name="pollStats">
+  <h4>Poll Stats</h4>
+  <h5>Total Responses: {{pollResponsesTotal ../poll}}</h5>
 </template>
