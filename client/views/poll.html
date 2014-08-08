@@ -10,8 +10,6 @@
   
   {{#if myResponse poll._id currentUser}}
     <h4>Your Response: {{myResponse poll._id currentUser}} <button class="btn btn-warning btn-xs clear-response">Clear My Response</button></h4>
-  {{else}}
-    <h4>Select an option to register your response!</h4>
   {{/if}}
   
   {{#if isOwner poll._id currentUser}}
