@@ -27,6 +27,7 @@ Router.map(function () {
       var responses = Responses.find({
         poll: this.params._id
       });
+      if (!Meteor.userId()) {Meteor.loginVisitor()}
       return {
         poll: poll,
         choices: choices,
