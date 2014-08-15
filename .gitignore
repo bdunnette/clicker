@@ -24,3 +24,4 @@ node_modules
 .git
 .build*
 packages/
+server/kadira.js
