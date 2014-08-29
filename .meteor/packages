@@ -1,7 +1,7 @@
 standard-app-packages
-iron-router
+cmather:iron-router@0.8.2
 less
-bootstrap3-less
 accounts-google
-accounts-ui-bootstrap-3
-kadira
+accounts-ui-unstyled
+mizzao:bootstrap-3
+
