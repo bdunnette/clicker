@@ -3,34 +3,30 @@
   {{#if isOwner poll._id currentUser}}
   <div class="poll-controls pull-right">
     <button class="btn btn-success add-choice">Add Choice <span class="glyphicon glyphicon-plus-sign remove-choice"></span></button>
+    <button class="btn btn-warning clear-all-responses">Clear All Responses <span class="glyphicon glyphicon-minus-sign remove-choice"></span></button>
     <button class="btn btn-danger delete-poll">Delete Poll <span class="glyphicon glyphicon-remove-sign remove-choice"></span></button>
   </div>
   {{/if}}
   </h3>
-  
   {{#if myResponse poll._id currentUser}}
-    <h4>Your Response: {{myResponse poll._id currentUser}} <button class="btn btn-warning btn-xs clear-response">Clear My Response</button></h4>
-  {{/if}}
-  
-  {{#if isOwner poll._id currentUser}}
+  <h4>Your Response: {{myResponse poll._id currentUser}} <button class="btn btn-warning btn-xs clear-response">Clear My Response</button></h4>
+  {{/if}} {{#if isOwner poll._id currentUser}}
   <div class="col-md-6 poll-stats">
     {{> pollStats}}
   </div>
   {{/if}}
-  
+
   <div class="choices {{#if isOwner poll._id currentUser}}col-md-6{{/if}}">
-  {{#each choices}}
-    {{> choice}}
-  {{/each}}
+    {{#each choices}} {{> choice}} {{/each}}
   </div>
-  
+
 </template>
 
 <template name="choice">
   <div class="choice" id="{{_id}}" style="{{#if responsePercent _id poll}}background: linear-gradient(to right, {{color}} {{responsePercent _id poll}}%, white {{responsePercent _id poll}}%);{{/if}}">
     <span class="choice-text" contenteditable="{{isOwner poll currentUser}}">{{text}}</span>
     {{#if isOwner poll currentUser}}
-      <span class="glyphicon glyphicon-minus-sign remove-choice"></span>
+    <span class="glyphicon glyphicon-minus-sign remove-choice"></span>
     {{/if}}
   </div>
 </template>

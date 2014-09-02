@@ -1,16 +1,52 @@
 var defaultChoices = [
-  {"text":"A", "color":"red"},
-  {"text":"B", "color":"green"},
-  {"text":"C", "color":"yellow"},
-  {"text":"D", "color":"blue"},
-  {"text":"E", "color":"orange"},
-  {"text":"F", "color":"purple"},
-  {"text":"G", "color":"aqua"},
-  {"text":"H", "color":"maroon"},
-  {"text":"I", "color":"lime"},
-  {"text":"J", "color":"navy"},
-  {"text":"K", "color":"fuchsia"},
-  {"text":"L", "color":"olive"}
+  {
+    "text": "A",
+    "color": "red"
+  },
+  {
+    "text": "B",
+    "color": "green"
+  },
+  {
+    "text": "C",
+    "color": "yellow"
+  },
+  {
+    "text": "D",
+    "color": "blue"
+  },
+  {
+    "text": "E",
+    "color": "orange"
+  },
+  {
+    "text": "F",
+    "color": "purple"
+  },
+  {
+    "text": "G",
+    "color": "aqua"
+  },
+  {
+    "text": "H",
+    "color": "maroon"
+  },
+  {
+    "text": "I",
+    "color": "lime"
+  },
+  {
+    "text": "J",
+    "color": "navy"
+  },
+  {
+    "text": "K",
+    "color": "fuchsia"
+  },
+  {
+    "text": "L",
+    "color": "olive"
+  }
 ];
 
 Meteor.methods({
@@ -29,16 +65,18 @@ Meteor.methods({
     }
     return newPoll;
   },
-  
+
   addChoice: function (pollId) {
-    var choiceCount = Pollchoices.find({poll: pollId}).count();
+    var choiceCount = Pollchoices.find({
+      poll: pollId
+    }).count();
     if (defaultChoices[choiceCount]) {
       choice = defaultChoices[choiceCount];
     } else {
       choice = {
         text: choiceCount,
         // Thanks to Paul Irish et al for random CSS color code! http://www.paulirish.com/2009/random-hex-color-code-snippets/
-        color: '#'+Math.floor(Math.random()*16777215).toString(16)
+        color: '#' + Math.floor(Math.random() * 16777215).toString(16)
       };
     }
     choice.poll = pollId;
@@ -69,12 +107,24 @@ Meteor.methods({
     });
     return responseSet;
   },
-  
-  clearResponse: function (pollId, userId) {
-    var responseCleared = Responses.remove({
+
+  clearMyResponse: function (pollId, userId) {
+    var myResponseCleared = Responses.remove({
       poll: pollId,
       user: userId
     });
-    return(responseCleared);
+    return myResponseCleared;
+  },
+
+  clearAllResponses: function (pollId, userId) {
+    var pollOwner = Polls.findOne(pollId).owner;
+    if (pollOwner == userId) {
+      var allResponsesCleared = Responses.remove({
+        poll: pollId
+      });
+      return allResponsesCleared;
+    } else {
+      return false;
+    }
   }
 });
