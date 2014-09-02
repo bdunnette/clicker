@@ -12,7 +12,7 @@
   <h4>Your Response: {{myResponse poll._id currentUser}} <button class="btn btn-warning btn-xs clear-response">Clear My Response</button></h4>
   {{/if}} {{#if isOwner poll._id currentUser}}
   <div class="col-md-6 poll-stats">
-    {{> pollStats}}
+    {{> pollsterTips}} {{> pollStats}}
   </div>
   {{/if}}
 
@@ -29,6 +29,13 @@
     <span class="glyphicon glyphicon-minus-sign remove-choice"></span>
     {{/if}}
   </div>
+</template>
+
+<template name="pollsterTips">
+  <h4>Tips & Tricks</h4>
+  <ul>
+    <li>Click/tap on a choice's text to edit it (this works for the poll title, too!)</li>
+  </ul>
 </template>
 
 <template name="pollStats">
