@@ -1,5 +1,5 @@
 Template.pollView.helpers({
- 
+
 });
 
 Template.pollView.events({
@@ -36,15 +36,19 @@ Template.pollView.events({
       Router.go('/');
     });
   },
-  
+
+  'click button.clear-all-responses': function () {
+    Meteor.call("clearAllResponses", this.poll._id, Meteor.userId());
+  },
+
   'click button.add-choice': function () {
     Meteor.call("addChoice", this.poll._id);
   },
-  
+
   'click button.clear-response': function () {
-    Meteor.call("clearResponse", this.poll._id, Session.get('session_id'));
+    Meteor.call("clearMyResponse", this.poll._id, Session.get('session_id'));
   },
-  
+
   'click .remove-choice': function () {
     Pollchoices.remove(this._id);
   }
