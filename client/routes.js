@@ -1,10 +1,10 @@
 // From http://jsfiddle.net/briguy37/2MVFd/
 function generateSessionID() {
   var d = new Date().getTime();
-  var uuid = 'guest-xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      var r = (d + Math.random()*16)%16 | 0;
-      d = Math.floor(d/16);
-      return (c=='x' ? r : (r&0x7|0x8)).toString(16);
+  var uuid = 'guest-xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = (d + Math.random() * 16) % 16 | 0;
+    d = Math.floor(d / 16);
+    return (c == 'x' ? r : (r & 0x7 | 0x8)).toString(16);
   });
   return uuid;
 }
@@ -14,7 +14,7 @@ Router.configure({
   loadingTemplate: 'loading'
 });
 
-Router.onRun(function() {
+Router.onRun(function () {
   if (!Session.get('session_id')) {
     console.log(Session);
     var session_id = Meteor.userId() || generateSessionID();
@@ -36,6 +36,15 @@ Router.map(function () {
   this.route('poll', {
     path: '/p/:_id',
     template: 'pollView',
+    waitOn: function () {
+      var pollChoices = Meteor.subscribe('PollChoices', {
+        poll: this.params._id
+      });
+      var pollResponses = Meteor.subscribe('Responses', {
+        poll: this.params._id
+      });
+      return (pollChoices, pollResponses);
+    },
     data: function () {
       _id = this.params._id;
       var poll = Polls.findOne({
