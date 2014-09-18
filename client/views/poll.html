@@ -12,7 +12,7 @@
   <h4>Your Response: {{myResponse poll._id currentUser}} <button class="btn btn-warning btn-xs clear-response">Clear My Response</button></h4>
   {{/if}} {{#if isOwner poll._id currentUser}}
   <div class="col-md-6 poll-stats">
-    {{> pollsterTips}} {{> pollStats}}
+    {{> pollsterTips}} {{> pollStats}} {{> pollQR}}
   </div>
   {{/if}}
 
@@ -41,4 +41,9 @@
 <template name="pollStats">
   <h4>Poll Stats</h4>
   <h5>Total Responses: {{pollResponsesTotal ../poll}}</h5>
+</template>
+
+<template name="pollQR">
+  <h4>Poll QR Code</h4>
+  <div id="qr"></div>
 </template>

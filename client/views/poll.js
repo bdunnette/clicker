@@ -1,3 +1,21 @@
+var draw_qrcode = function (text, typeNumber, errorCorrectLevel) {
+  document.write(create_qrcode(text, typeNumber, errorCorrectLevel));
+};
+
+var create_qrcode = function (text, typeNumber, errorCorrectLevel, table) {
+
+  var qr = qrcode(typeNumber || 4, errorCorrectLevel || 'M');
+  qr.addData(text);
+  qr.make();
+
+  //	return qr.createTableTag();
+  return qr.createImgTag();
+};
+
+var update_qrcode = function (pollId) {
+  document.getElementById('qr').innerHTML = create_qrcode(pollId);
+};
+
 Template.pollView.helpers({
 
 });
@@ -53,3 +71,7 @@ Template.pollView.events({
     Pollchoices.remove(this._id);
   }
 });
+
+Template.pollQR.rendered = function () {
+  update_qrcode(location.href);
+};
