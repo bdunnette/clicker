@@ -1,7 +1,7 @@
-cmather:iron-router@0.8.2
 less
 accounts-google
-accounts-ui-unstyled
 mizzao:bootstrap-3
 meteor-platform
+iron:router
+ian:accounts-ui-bootstrap-3
 
