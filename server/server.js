@@ -126,5 +126,14 @@ Meteor.methods({
     } else {
       return false;
     }
+  },
+
+  claimResponses: function (sessionId) {
+    var responsesClaimed = Responses.update({
+      user: sessionId
+    }, {
+      user: this.userId
+    });
+    return responsesClaimed;
   }
 });
