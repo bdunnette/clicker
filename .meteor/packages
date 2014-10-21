@@ -1,7 +1,7 @@
-less
 accounts-google
-mizzao:bootstrap-3
 meteor-platform
 iron:router
 ian:accounts-ui-bootstrap-3
 underscore
+ian:bootstrap-3
+
