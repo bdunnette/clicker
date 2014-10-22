@@ -70,15 +70,10 @@ Meteor.methods({
     var choiceCount = Pollchoices.find({
       poll: pollId
     }).count();
-    if (defaultChoices[choiceCount]) {
-      choice = defaultChoices[choiceCount];
-    } else {
-      choice = {
-        text: choiceCount,
-        // Thanks to Paul Irish et al for random CSS color code! http://www.paulirish.com/2009/random-hex-color-code-snippets/
-        color: '#' + Math.floor(Math.random() * 16777215).toString(16)
-      };
-    }
+    choice = {
+      text: String.fromCharCode(65 + choiceCount),
+      color: '#' + Math.floor(Math.random() * 16777215).toString(16)
+    };
     choice.poll = pollId;
     choice.owner = this.userId;
     var newChoice = Pollchoices.insert(choice);

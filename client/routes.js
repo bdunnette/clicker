@@ -6,7 +6,7 @@ Router.configure({
 Router.onRun(function () {
   var sessionId = Session.get('session_id');
   if (Meteor.userId()) {
-    if (sessionId != Meteor.userId()) {
+    if (sessionId !== Meteor.userId()) {
       Meteor.call("claimResponses", sessionId);
     }
     Session.set('session_id', Meteor.userId());
@@ -25,7 +25,7 @@ Router.map(function () {
     template: 'pollsView',
     data: function () {
       return Polls.find({});
-    },
+    }
   });
 
   this.route('poll', {
@@ -33,11 +33,11 @@ Router.map(function () {
     template: 'pollView',
     waitOn: function () {
       var pollChoices = Meteor.subscribe('PollChoices', {
-        poll: this.params._id
-      });
-      var pollResponses = Meteor.subscribe('Responses', {
-        poll: this.params._id
-      });
+          poll: this.params._id
+        }),
+        pollResponses = Meteor.subscribe('Responses', {
+          poll: this.params._id
+        });
       return (pollChoices, pollResponses);
     },
     data: function () {
