@@ -16,6 +16,21 @@ var update_qrcode = function (pollId) {
   document.getElementById('qr').innerHTML = create_qrcode(pollId);
 };
 
+var addChoice = function (pollId) {
+  var choiceCount = Pollchoices.find({
+    poll: pollId
+  }).count();
+  choice = {
+    text: String.fromCharCode(65 + choiceCount),
+    color: randomColor()
+  };
+  console.log(this);
+  choice.poll = pollId;
+  choice.owner = Meteor.userId();
+  var newChoice = Pollchoices.insert(choice);
+  return newChoice;
+}
+
 Template.pollView.helpers({
 
 });
@@ -60,7 +75,7 @@ Template.pollView.events({
   },
 
   'click button.add-choice': function () {
-    Meteor.call("addChoice", this.poll._id);
+    addChoice(this.poll._id);
   },
 
   'click button.clear-response': function () {

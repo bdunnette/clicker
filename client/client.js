@@ -1,5 +1,7 @@
 UI.registerHelper('isOwner', function (pollId, currentUser) {
-  var poll = Polls.findOne({_id:pollId});
+  var poll = Polls.findOne({
+    _id: pollId
+  });
   if (poll && currentUser) {
     return poll.owner == currentUser._id;
   } else {
@@ -22,11 +24,15 @@ UI.registerHelper('myResponse', function (pollId, currentUser) {
     poll: pollId,
     user: currentUser._id
   });
-  var myChoice = Pollchoices.findOne({_id: myResponse.choice});
+  var myChoice = Pollchoices.findOne({
+    _id: myResponse.choice
+  });
   return myChoice.text;
 });
 
 UI.registerHelper('pollResponsesTotal', function (poll) {
-  var pollResponsesTotal = Responses.find({poll: poll._id}).count();
+  var pollResponsesTotal = Responses.find({
+    poll: poll._id
+  }).count();
   return pollResponsesTotal;
 });

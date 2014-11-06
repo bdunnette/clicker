@@ -18,34 +18,6 @@ var defaultChoices = [
   {
     "text": "E",
     "color": "orange"
-  },
-  {
-    "text": "F",
-    "color": "purple"
-  },
-  {
-    "text": "G",
-    "color": "aqua"
-  },
-  {
-    "text": "H",
-    "color": "maroon"
-  },
-  {
-    "text": "I",
-    "color": "lime"
-  },
-  {
-    "text": "J",
-    "color": "navy"
-  },
-  {
-    "text": "K",
-    "color": "fuchsia"
-  },
-  {
-    "text": "L",
-    "color": "olive"
   }
 ];
 
