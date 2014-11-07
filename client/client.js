@@ -10,13 +10,17 @@ UI.registerHelper('isOwner', function (pollId, currentUser) {
 });
 
 UI.registerHelper('responsePercent', function (choiceId, pollId) {
-  var choiceResponses = Responses.find({
-    choice: choiceId
-  }).count();
   var totalResponses = Responses.find({
     poll: pollId
   }).count();
-  return 100 * (choiceResponses / totalResponses);
+  var responsePercent = 0;
+  if (totalResponses > 0) {
+    var choiceResponses = Responses.find({
+      choice: choiceId
+    }).count();
+    responsePercent = Math.round((choiceResponses / totalResponses) * 100);
+  }
+  return responsePercent;
 });
 
 UI.registerHelper('myResponse', function (pollId, currentUser) {
