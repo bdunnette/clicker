@@ -16,6 +16,7 @@ Router.onRun(function () {
     }
   }
   console.log(sessionId);
+  this.next();
 });
 
 Router.map(function () {

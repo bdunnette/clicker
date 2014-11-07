@@ -24,7 +24,6 @@ var addChoice = function (pollId) {
     text: String.fromCharCode(65 + choiceCount),
     color: randomColor()
   };
-  console.log(this);
   choice.poll = pollId;
   choice.owner = Meteor.userId();
   var newChoice = Pollchoices.insert(choice);
@@ -46,20 +45,21 @@ Template.pollView.events({
     Meteor.call("setResponse", this.poll, this._id, Session.get('session_id'));
   },
 
-  'blur #pollTitle': function () {
-    var newTitle = $('#pollTitle').text();
+  'input .pollTitle': function (event, template) {
     Polls.update(this.poll._id, {
       $set: {
-        title: newTitle
+        title: event.target.value
       }
     });
   },
 
-  'blur .choice-text': function (event, template) {
+  'input .choice-text': function (event, template) {
+    console.log(event.target.value);
+    console.log(this);
     var newText = event.target.textContent;
     Pollchoices.update(this._id, {
       $set: {
-        text: newText
+        text: event.target.value
       }
     });
   },
