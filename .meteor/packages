@@ -24,3 +24,5 @@ aldeed:collection2
 kadira:flow-router
 kadira:react-layout
 react
+accounts-password
+accounts-ui

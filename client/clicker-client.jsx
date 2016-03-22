@@ -1,10 +1,26 @@
 MainLayout = React.createClass({
   render() {
     return <div>
-      <header><h1>Kadira Blog</h1></header>
+      <header><h1>Kadira Blog</h1><AccountsUIWrapper /></header>
       <main>{this.props.content}</main>
       <footer>We love Meteor</footer>
     </div>;
+  }
+});
+
+AccountsUIWrapper = React.createClass({
+  componentDidMount() {
+    // Use Meteor Blaze to render login buttons
+    this.view = Blaze.render(Template.loginButtons,
+      ReactDOM.findDOMNode(this.refs.container));
+  },
+  componentWillUnmount() {
+    // Clean up Blaze view
+    Blaze.remove(this.view);
+  },
+  render() {
+    // Just render a placeholder container that will be filled in
+    return <span ref="container" />;
   }
 });
 
@@ -23,10 +39,26 @@ PollRow = React.createClass({
 
 PollList = React.createClass({
   mixins: [ReactMeteorData],
+  handleSubmit(event) {
+    event.preventDefault();
+
+    // Find the text field via the React ref
+    var text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
+
+    Polls.insert({
+      title: text,
+      owner: Meteor.userId(),
+      createdAt: new Date() // current time
+    });
+
+    // Clear form
+    ReactDOM.findDOMNode(this.refs.textInput).value = "";
+  },
   // Loads items from the Polls collection and puts them on this.data.polls
   getMeteorData() {
     return {
-      polls: Polls.find({}).fetch()
+      polls: Polls.find({},{sort:{createdAt:-1}}).fetch(),
+      currentUser: Meteor.userId()
     }
   },
   renderPolls() {
@@ -39,7 +71,15 @@ PollList = React.createClass({
     return (
       <div className="container">
         <header>
-          <h1>Todo List</h1>
+          <h1>Available Polls:</h1>
+            { this.data.currentUser ?
+              <form className="new-poll" onSubmit={this.handleSubmit} >
+                <input
+                  type="text"
+                  ref="textInput"
+                  placeholder="Type to add new polls" />
+              </form> : ''
+            }
         </header>
 
         <ul>
@@ -53,11 +93,11 @@ PollList = React.createClass({
 PollView = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
-    var data = {};
-    var postId = this.props.postId;
-    var handle = Meteor.subscribe('Polls');
+    var data = {currentUser: Meteor.userId()};
+    var pollId = this.props.pollId;
+    var handle = Meteor.subscribe('Poll', pollId);
     if(handle.ready()) {
-      data.post = Posts.findOne({_id: postId});
+      data.post = Polls.findOne({_id: pollId});
     }
     return data;
   },
